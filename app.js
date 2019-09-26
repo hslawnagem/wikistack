@@ -18,16 +18,21 @@ app.use(bodyparser.json());
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname , "/public")));
 app.use('/wiki', wikiRouter);
+app.use('/users',userRouter);
+
+/***************************************************/
+//app.get("/users", (req, res) => {
+//  res.redirect('/user');
+//})
 
 /***************************************************/
 app.get("/", (req, res) => {
   res.redirect('/wiki');
 })
 
-
 /***************************************************/
 const init = async()=>{
-  await models.db.sync();
+  await models.db.sync({force:true});
   app.listen(PORT, () => {
     console.log(`App listening in port ${PORT}`);
   })

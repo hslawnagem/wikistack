@@ -42,6 +42,8 @@ const Page = db.define('page', {
     pageInstance.slug = generateSlug(pageInstance.title);
   })
 
+  Page.belongsTo(User, { as: 'author' });
+
 
 function generateSlug (title) {
   // Removes all non-alphanumeric characters from title
